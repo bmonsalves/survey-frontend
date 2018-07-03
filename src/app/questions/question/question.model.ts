@@ -1,4 +1,4 @@
-import {Answer} from '../answer/answer.model';
+import {Answer} from '../../answer/answer.model';
 
 export class Question {
   title: string;

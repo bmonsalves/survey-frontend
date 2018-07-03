@@ -1,4 +1,4 @@
-import {Question} from '../question/question.model';
+import {Question} from '../questions/question/question.model';
 import {User} from '../auth/user.model';
 
 export class Answer {
