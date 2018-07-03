@@ -15,12 +15,20 @@
 </mat-card>
 
 <div class="answers">
-  <h2>Respuestas</h2>
-  <ul>
-    <li>
-      <b>bmonsalves</b>
-      <p>respuesta...</p>
-    </li>
-  </ul>
-  <app-answer-form></app-answer-form>
+  <div *ngIf="question.answers.length > 0">
+    <h4>Respuestas</h4>
+    <ul>
+      <li *ngFor="let answer of question.answers">
+        <p>
+          <b>{{answer.user.name}} {{answer.user.lastname}} </b>
+          <small>{{answer.createdAt | amLocale:'es' | amTimeAgo }}</small>
+        </p>
+        <p>{{answer.description}}</p>
+      </li>
+    </ul>
+  </div>
+  <p *ngIf="question.answers.length === 0">
+    Sé el primero en responder esta pregunta
+  </p>
+  <app-answer-form [question]="question"></app-answer-form>
 </div>
