@@ -1,0 +1,9 @@
+.icon {
+  font-size: 50px;
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+}
