@@ -1,0 +1,36 @@
+<form [formGroup]="signUpForm" (onSubmit)="onSubmit()">
+
+  <mat-form-field class="example-full-width">
+    <input matInput
+           type="text"
+           placeholder="Nombre"
+           formControlName="name"
+           id="name">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input matInput
+           type="text"
+           placeholder="Apellido"
+           formControlName="lastname"
+           id="lastname">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input matInput
+           type="email"
+           placeholder="email"
+           formControlName="email"
+           id="email">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input matInput
+           type="password"
+           placeholder="Contraseña"
+           id="password"
+           formControlName="password">
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit">Crear usuario</button>
+</form>

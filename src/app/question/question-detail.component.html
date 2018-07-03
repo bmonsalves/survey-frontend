@@ -20,7 +20,7 @@
     <ul>
       <li *ngFor="let answer of question.answers">
         <p>
-          <b>{{answer.user.name}} {{answer.user.lastname}} </b>
+          <b>{{answer.user.fullname()}}</b>
           <small>{{answer.createdAt | amLocale:'es' | amTimeAgo }}</small>
         </p>
         <p>{{answer.description}}</p>
