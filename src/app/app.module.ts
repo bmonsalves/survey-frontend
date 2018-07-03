@@ -10,8 +10,8 @@ import 'hammerjs';
 import { AppComponent } from './app.component';
 import { QuestionDetailComponent } from './questions/question/question-detail.component';
 import { AnswerFormComponent } from './answer/answer-form.component';
-import { SigninComponent } from './auth/signin.component';
-import { SignupComponent } from './sign-up/signup.component';
+import { SigninComponent } from './auth/sing-in/signin.component';
+import { SignupComponent } from './auth/sign-up/signup.component';
 import {QuestionListComponent} from './questions/question-list/question-list.component';
 
 @NgModule({
