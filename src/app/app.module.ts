@@ -5,6 +5,7 @@ import { MaterialModule } from './material.module';
 import { MomentModule } from 'angular2-moment';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import 'hammerjs';
+import {Routing} from './app.routing';
 
 // APP
 import { AppComponent } from './app.component';
@@ -31,7 +32,8 @@ import {QuestionFormComponent} from './questions/question-form/question-form.com
     MaterialModule,
     MomentModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    Routing
   ],
   providers: [],
   bootstrap: [AppComponent]

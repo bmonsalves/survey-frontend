@@ -1,8 +1,8 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" class="header">
 
-    <span>Surveys</span>
-    <span class="spacer"></span>
-    <mat-icon>account_circle</mat-icon>
+  <a [routerLink]="['/']">Preguntas</a>
+  <span class="spacer"></span>
+  <a [routerLink]="['/signin']"><mat-icon>account_circle</mat-icon></a>
 
 </mat-toolbar>
 
@@ -10,4 +10,5 @@
 <!--app-signin></app-signin-->
 <!--app-signup></app-signup-->
 <!--app-question-list></app-question-list-->
-<app-question-form></app-question-form>
+<!--app-question-form></app-question-form-->
+<router-outlet></router-outlet>
