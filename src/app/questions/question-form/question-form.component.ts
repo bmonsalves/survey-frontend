@@ -47,6 +47,6 @@ export class QuestionFormComponent {
         error => console.log(error)
       );
 
-      form.reset();
+    form.reset();
   }
 }

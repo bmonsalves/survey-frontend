@@ -22,9 +22,9 @@
       <h4>Respuestas</h4>
       <ul>
         <li *ngFor="let answer of question.answers">
-          <p>
-            <b>{{answer.user.fullname()}}</b>
-            <small>{{answer.createdAt | amLocale:'es' | amTimeAgo }}</small>
+          <p *ngIf="answer.user">
+            <b>{{answer.user.name}} {{answer.user.lastname}}</b>
+            <small> {{answer.createdAt | amLocale:'es' | amTimeAgo }} </small>
           </p>
           <p>{{answer.description}}</p>
         </li>

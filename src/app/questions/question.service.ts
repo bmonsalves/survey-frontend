@@ -4,6 +4,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
+import {Answer} from '../answer/answer.model';
 
 
 // import * as urlJoin from 'url-join';
@@ -43,6 +44,32 @@ export class QuestionService {
     };
 
     return this.http.post<Question>(this.apiURL, body, options)
+      .pipe(
+        map((response: Response) => response),
+        catchError((err) => {
+          return this.handleError(err);
+        })
+      );
+  }
+
+  addAnswer (answer: Answer): Observable<Answer> {
+
+    const bodyAnswer = {
+      description: answer.description,
+      question: {
+        _id: answer.question._id
+      }
+    };
+
+    const body = JSON.stringify(bodyAnswer);
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type' : 'application/json'
+      })
+    };
+
+    const url = `${this.apiURL}${answer.question._id}/answers`;
+    return this.http.post<Answer>(url, body, options)
       .pipe(
         map((response: Response) => response),
         catchError((err) => {
