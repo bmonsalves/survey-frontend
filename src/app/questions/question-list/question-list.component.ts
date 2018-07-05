@@ -1,38 +1,27 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Question} from '../question/question.model';
-
-const p1 = new Question(
-  `pregunta numero 1`,
-  `Descripcion de la pregunta 1`,
-  new Date,
-  `devicon-amazonwebservices-original colored`
-);
-
-const p2 = new Question(
-  `pregunta numero 2`,
-  `Descripcion de la pregunta 2`,
-  new Date,
-  `devicon-babel-plain colored`
-);
-
-const p3 = new Question(
-  `pregunta numero 3`,
-  `Descripcion de la pregunta 3`,
-  new Date,
-  `devicon-confluence-plain colored`
-);
-
-const p4 = new Question(
-  `pregunta numero 4`,
-  `Descripcion de la pregunta 4`,
-  new Date
-);
+import {QuestionService} from '../question.service';
 
 @Component({
   selector: 'app-question-list',
   templateUrl: './question-list.component.html',
-  styleUrls: ['./question-list.component.css']
+  styleUrls: ['./question-list.component.css'],
+  providers: [QuestionService]
 })
-export class QuestionListComponent {
-  questions: Question[] = [p1, p2, p3, p4];
+export class QuestionListComponent implements OnInit {
+
+  questions: Question[];
+
+  constructor(
+    private questionService: QuestionService
+  ) { }
+
+  ngOnInit() {
+    this.questionService
+        .getQuestions()
+        .then((questions: Question[]) => {
+          this.questions = questions;
+        });
+  }
+
 }

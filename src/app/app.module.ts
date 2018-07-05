@@ -6,6 +6,8 @@ import { MomentModule } from 'angular2-moment';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import 'hammerjs';
 import {Routing} from './app.routing';
+import {HttpClientModule} from '@angular/common/http';
+
 
 // APP
 import { AppComponent } from './app.component';
@@ -15,6 +17,7 @@ import { SigninComponent } from './auth/sing-in/signin.component';
 import { SignupComponent } from './auth/sign-up/signup.component';
 import {QuestionListComponent} from './questions/question-list/question-list.component';
 import {QuestionFormComponent} from './questions/question-form/question-form.component';
+import {NgHttpLoaderModule} from 'ng-http-loader';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,9 @@ import {QuestionFormComponent} from './questions/question-form/question-form.com
     MomentModule,
     FormsModule,
     ReactiveFormsModule,
-    Routing
+    Routing,
+    HttpClientModule,
+    NgHttpLoaderModule
   ],
   providers: [],
   bootstrap: [AppComponent]
