@@ -13,10 +13,15 @@ export class AppComponent implements OnInit {
   constructor(private authService: AuthService) {}
 
   ngOnInit () {
+    this.getCurrentUser();
+  }
+
+  getCurrentUser() {
     this.currentUser = this.authService.currentUser;
   }
 
   isLoggedIn () {
+    this.getCurrentUser();
     return this.authService.isLoggedIn();
   }
 

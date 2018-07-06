@@ -1,4 +1,4 @@
-<form [formGroup]="signUpForm" (onSubmit)="onSubmit()">
+<form [formGroup]="signUpForm">
 
   <mat-form-field class="example-full-width">
     <input matInput
@@ -32,7 +32,7 @@
            formControlName="password">
   </mat-form-field>
 
-  <button mat-raised-button color="primary" type="submit">Crear usuario</button>
+  <button mat-raised-button color="primary" type="submit" (click)="onSubmit()">Crear usuario</button>
 
   <p style="text-align: center">
     <a mat-button color="primary" [routerLink]="['/signin']">Ya tengo una cuenta</a>

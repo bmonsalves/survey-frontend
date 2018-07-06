@@ -21,6 +21,27 @@ export class AuthService {
     }
   }
 
+  signup(user: User) {
+    const body = JSON.stringify(user);
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type' : 'application/json'
+      })
+    };
+
+    const url = `${this.apiURL}signup`;
+    return this.http.post<any>(url, body, options)
+      .pipe(
+        map((response: Response) => {
+          this.login(response);
+          return response;
+        }),
+        catchError((err) => {
+          return this.handleError(err);
+        })
+      );
+  }
+
   signin(user: User) {
     const body = JSON.stringify(user);
     const options = {
