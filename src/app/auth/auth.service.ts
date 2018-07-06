@@ -4,6 +4,7 @@ import { User } from './user.model';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {catchError, map} from 'rxjs/operators';
 import {Router} from '@angular/router';
+import {MatSnackBar} from '@angular/material';
 
 @Injectable()
 export class AuthService {
@@ -12,7 +13,8 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private router: Router) {
+    private router: Router,
+    public snackBar: MatSnackBar) {
     this.apiURL = `${environment.apiURL}auth/`;
 
     if (this.isLoggedIn()) {
@@ -84,8 +86,26 @@ export class AuthService {
   handleError(error: any) {
     const errMsg = error.message ? error.message :
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-    console.log(errMsg);
+    console.log(`${error.status} - ${error.statusText}`, errMsg);
 
     return error;
+  }
+
+  showSnackBar(message) {
+    this.snackBar.open(message, 'x', { duration: 2500 });
+  }
+
+  public showError = (error: any) => {
+    console.log(error);
+    const { error: { name }, message } = error;
+    if (name === 'TokenExpiredError') {
+      this.showSnackBar('Tu sesión ha expirado');
+    } else if (name === 'JsonWebTokenError') {
+      this.showSnackBar('Ha habido un problema con tu sesión');
+    } else {
+      this.showSnackBar(message || 'Ha ocurrido un error. Inténtalo nuevamente');
+    }
+    this.logout();
+
   }
 }

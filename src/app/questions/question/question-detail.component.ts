@@ -23,7 +23,6 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
     this.questionService
       .getQuestion(this.id)
       .then((question: Question) => {
-        console.log(`saddsadsaadsads ${question}`);
         this.question = question;
       });
 

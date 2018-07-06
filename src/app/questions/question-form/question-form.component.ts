@@ -1,9 +1,10 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Question} from '../question/question.model';
 import {NgForm} from '@angular/forms';
 import icons from './icons';
 import {QuestionService} from '../question.service';
 import {Router} from '@angular/router';
+import {AuthService} from '../../auth/auth.service';
 
 
 @Component({
@@ -12,14 +13,21 @@ import {Router} from '@angular/router';
   styleUrls: ['./question-form.component.css'],
   providers: [QuestionService]
 })
-export class QuestionFormComponent {
+export class QuestionFormComponent implements OnInit {
 
   icons: Object[] = icons;
 
   constructor(
     private questionService: QuestionService,
+    private authService: AuthService,
     private router: Router
   ) { }
+
+  ngOnInit() {
+    if (!this.authService.isLoggedIn()) {
+      this.router.navigateByUrl('/signin');
+    }
+  }
 
   public getIconVersion (icon: any): string {
     let version;
@@ -44,7 +52,7 @@ export class QuestionFormComponent {
     this.questionService.addQuestion(question)
       .subscribe(
         (response) => this.router.navigate(['/questions', response._id]),
-        error => console.log(error)
+        error => this.authService.showError(error)
       );
 
     form.reset();

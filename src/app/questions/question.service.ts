@@ -42,8 +42,8 @@ export class QuestionService {
         'Content-Type' : 'application/json'
       })
     };
-
-    return this.http.post<Question>(this.apiURL, body, options)
+    const url = `${this.apiURL}?token=${this.getToken()}`;
+    return this.http.post<Question>(url, body, options)
       .pipe(
         map((response: Response) => response),
         catchError((err) => {
@@ -68,7 +68,7 @@ export class QuestionService {
       })
     };
 
-    const url = `${this.apiURL}${answer.question._id}/answers`;
+    const url = `${this.apiURL}${answer.question._id}/answers?token=${this.getToken()}`;
     return this.http.post<Answer>(url, body, options)
       .pipe(
         map((response: Response) => response),
@@ -78,10 +78,15 @@ export class QuestionService {
       );
   }
 
+  getToken() {
+    return localStorage.getItem('token');
+}
+
   handleError(error: any) {
     const errMsg = error.message ? error.message :
                    error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-    console.log(errMsg);
+    console.log( errMsg);
+
 
     return error;
   }

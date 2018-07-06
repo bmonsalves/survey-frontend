@@ -33,7 +33,7 @@ export class SigninComponent implements OnInit {
       this.authService.signin(user)
         .subscribe(
           (response) => this.router.navigateByUrl('/'),
-          error => console.log(error)
+          error => this.authService.showError(error)
         );
     }
   }

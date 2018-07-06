@@ -2,8 +2,9 @@ import {Component, Input} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Answer} from './answer.model';
 import { Question } from '../questions/question/question.model';
-import {User} from '../auth/user.model';
 import {QuestionService} from '../questions/question.service';
+import {AuthService} from '../auth/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-answer-form',
@@ -16,9 +17,16 @@ export class AnswerFormComponent {
 
   constructor(
     private questionService: QuestionService,
+    private authService: AuthService,
+    private router: Router,
   ) { }
 
   onSubmit(form: NgForm) {
+
+    if (!this.authService.isLoggedIn()) {
+      this.router.navigateByUrl('/signin');
+    }
+
     const answer = new Answer(
       form.value.description,
       this.question
@@ -27,7 +35,7 @@ export class AnswerFormComponent {
     this.questionService.addAnswer(answer)
       .subscribe(
         (response) => this.question.answers.unshift(response),
-        error => console.log(error)
+        error => this.authService.showError(error)
       );
 
     form.reset();
