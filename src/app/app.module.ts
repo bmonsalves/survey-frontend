@@ -18,6 +18,7 @@ import { SignupComponent } from './auth/sign-up/signup.component';
 import {QuestionListComponent} from './questions/question-list/question-list.component';
 import {QuestionFormComponent} from './questions/question-form/question-form.component';
 import {NgHttpLoaderModule} from 'ng-http-loader';
+import {AuthService} from './auth/auth.service';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,7 @@ import {NgHttpLoaderModule} from 'ng-http-loader';
     HttpClientModule,
     NgHttpLoaderModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
