@@ -5,6 +5,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {catchError, map} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material';
+import {throwError} from 'rxjs';
 
 @Injectable()
 export class AuthService {
@@ -39,7 +40,7 @@ export class AuthService {
           return response;
         }),
         catchError((err) => {
-          return this.handleError(err);
+          return throwError(err);
         })
       );
   }
@@ -60,7 +61,7 @@ export class AuthService {
           return response;
         }),
         catchError((err) => {
-          return this.handleError(err);
+          return throwError(err);
         })
       );
   }
@@ -95,12 +96,13 @@ export class AuthService {
     this.snackBar.open(message, 'x', { duration: 2500 });
   }
 
-  public showError = (error: any) => {
+  public showError = (err: any) => {
+    const { error: {error}, message } = err;
     console.log(error);
-    const { error: { name }, message } = error;
-    if (name === 'TokenExpiredError') {
+
+    if (error.name === 'TokenExpiredError') {
       this.showSnackBar('Tu sesión ha expirado');
-    } else if (name === 'JsonWebTokenError') {
+    } else if (error.name === 'JsonWebTokenError') {
       this.showSnackBar('Ha habido un problema con tu sesión');
     } else {
       this.showSnackBar(message || 'Ha ocurrido un error. Inténtalo nuevamente');

@@ -23,10 +23,6 @@ export class AnswerFormComponent {
 
   onSubmit(form: NgForm) {
 
-    if (!this.authService.isLoggedIn()) {
-      this.router.navigateByUrl('/signin');
-    }
-
     const answer = new Answer(
       form.value.description,
       this.question

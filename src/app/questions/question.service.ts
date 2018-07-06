@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Question} from './question/question.model';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {Observable} from 'rxjs';
+import {Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {Answer} from '../answer/answer.model';
 
@@ -24,14 +24,14 @@ export class QuestionService {
     return this.http.get(this.apiURL)
                     .toPromise()
                     .then(response => response as Question[])
-                    .catch(this.handleError);
+                    .catch((err) => err);
   }
 
   getQuestion(id): Promise<void | Question> {
     return this.http.get(`${this.apiURL}${id}`)
       .toPromise()
       .then(response => response as Question)
-      .catch(this.handleError);
+      .catch((err) => err);
   }
 
   addQuestion (question: Question): Observable<Question> {
@@ -47,7 +47,7 @@ export class QuestionService {
       .pipe(
         map((response: Response) => response),
         catchError((err) => {
-          return this.handleError(err);
+          return throwError(err);
         })
       );
   }
@@ -73,21 +73,13 @@ export class QuestionService {
       .pipe(
         map((response: Response) => response),
         catchError((err) => {
-          return this.handleError(err);
+          return throwError(err);
         })
       );
   }
 
   getToken() {
     return localStorage.getItem('token');
-}
-
-  handleError(error: any) {
-    const errMsg = error.message ? error.message :
-                   error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-    console.log( errMsg);
-
-
-    return error;
   }
+
 }
