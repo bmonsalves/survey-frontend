@@ -3,13 +3,16 @@ import { environment } from '../../environments/environment';
 import { User } from './user.model';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {catchError, map} from 'rxjs/operators';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class AuthService {
   currentUser?: User;
   private apiURL: string;
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private router: Router) {
     this.apiURL = `${environment.apiURL}auth/`;
 
     if (this.isLoggedIn()) {
@@ -49,6 +52,12 @@ export class AuthService {
 
   isLoggedIn() {
     return localStorage.getItem('token') !== null;
+  }
+
+  logout () {
+    localStorage.clear();
+    this.currentUser = null;
+    this.router.navigateByUrl('/');
   }
 
   handleError(error: any) {

@@ -7,7 +7,8 @@ import {
   MatInputModule,
   MatButtonModule,
   MatListModule,
-  MatRadioModule
+  MatRadioModule,
+  MatMenuModule
 } from '@angular/material';
 
 const modules = [
@@ -18,7 +19,8 @@ const modules = [
   MatInputModule,
   MatButtonModule,
   MatListModule,
-  MatRadioModule
+  MatRadioModule,
+  MatMenuModule
 ];
 
 @NgModule({

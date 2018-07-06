@@ -2,7 +2,27 @@
 
   <a [routerLink]="['/']">Preguntas</a>
   <span class="spacer"></span>
-  <a [routerLink]="['/signin']"><mat-icon>account_circle</mat-icon></a>
+
+  <button *ngIf="!isLoggedIn()" mat-icon-button [routerLink]="['/signin']">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+
+  <div *ngIf="isLoggedIn()">
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+
+      <button mat-menu-item disabled>
+        <mat-icon>account_circle</mat-icon>
+        <span>{{currentUser.email}}</span>
+      </button>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Cerrar sesión</span>
+      </button>
+    </mat-menu>
+  </div>
 
 </mat-toolbar>
 
